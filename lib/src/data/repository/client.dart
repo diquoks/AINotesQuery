@@ -69,6 +69,13 @@ class Client implements Repository {
   }
 
   @override
+  Future<List<NoteModel>> getNotesList() async {
+    var response = await _dio.get("$_notesURL/records", options: _options);
+
+    return NoteModel.fromListJSON(response.data["items"]);
+  }
+
+  @override
   Future<NoteModel> createNote({
     required String userId,
     required String name,

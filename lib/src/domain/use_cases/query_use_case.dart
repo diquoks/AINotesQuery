@@ -63,6 +63,17 @@ class QueryUseCase {
     );
   }
 
+  Future<void> getNotesList({
+    required Function(List<NoteModel>) onResponse,
+    required Function(String) onError,
+  }) async {
+    await _helper.request(
+      request: _client.getNotesList,
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
+
   Future<void> createNote({
     required Function(NoteModel) onResponse,
     required Function(String) onError,

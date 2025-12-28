@@ -57,6 +57,12 @@ void main() {
         text: "Some text...",
       );
     });
+    test("getNotesList", () async {
+      await _queryUseCase.getNotesList(
+        onResponse: (obj) => onResponse(obj, List<NoteModel>),
+        onError: onError,
+      );
+    });
     test("logout", () async {
       await _queryUseCase.logout(
         onResponse: (obj) {

@@ -25,6 +25,10 @@ class NoteModel {
         updated: DateTime.parse(json["updated"]),
       );
 
+  static List<NoteModel> fromListJSON(List list) {
+    return list.map((item) => NoteModel.fromJSON(item)).toList();
+  }
+
   Map<String, dynamic> toJSON() => {
     "id": id,
     "userId": userId,

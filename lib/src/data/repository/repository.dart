@@ -12,5 +12,7 @@ abstract interface class Repository {
 
   Future<AuthModel> login({required String identity, required String password});
 
+  Future<void> logout();
+
   Future<UserModel> getUser({required String id});
 }

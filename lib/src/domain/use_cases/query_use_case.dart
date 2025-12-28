@@ -40,6 +40,17 @@ class QueryUseCase {
     );
   }
 
+  Future<void> logout({
+    required Function(void) onResponse,
+    required Function(String) onError,
+  }) async {
+    await _helper.request(
+      request: () => _client.logout(),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
+
   Future<void> getUser({
     required Function(UserModel) onResponse,
     required Function(String) onError,

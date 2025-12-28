@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:ai_notes_query/ai_notes_query.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-String testString = DateTime.now().microsecondsSinceEpoch.toString();
-
 QueryUseCase _queryUseCase = QueryUseCase();
 
+String _testString = DateTime.now().microsecondsSinceEpoch.toString();
+
 Map get _credentials => {
-  "email": "$testString@yandex.ru",
+  "email": "$_testString@yandex.ru",
   "password": r"Pa$$w0rd",
 };
 
@@ -46,6 +46,14 @@ void main() {
         onResponse: (obj) => onResponse(obj, UserModel),
         onError: onError,
         id: _queryUseCase.lastAuth!.record.id,
+      );
+    });
+    test("logout", () async {
+      await _queryUseCase.logout(
+        onResponse: (obj) {
+          assert(_queryUseCase.lastAuth == null);
+        },
+        onError: onError,
       );
     });
   });

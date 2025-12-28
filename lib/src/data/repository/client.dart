@@ -57,6 +57,11 @@ class Client implements Repository {
   }
 
   @override
+  Future<void> logout() async {
+    _lastAuth = null;
+  }
+
+  @override
   Future<UserModel> getUser({required String id}) async {
     var response = await _dio.get("$_usersURL/records/$id", options: _options);
 

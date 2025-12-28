@@ -1,0 +1,21 @@
+name: ai_notes_query
+description: "Ты думал тут что-то будет?"
+version: 1.0.0
+
+environment:
+  sdk: ^3.10.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  dio: ^5.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true

@@ -99,6 +99,11 @@ class Client implements Repository {
   }
 
   @override
+  Future<void> deleteNote({required String id}) async {
+    await _dio.delete("$_notesURL/records/$id", options: _options);
+  }
+
+  @override
   Future<NoteModel> getNote({required String id}) async {
     var response = await _dio.get("$_notesURL/records/$id", options: _options);
 

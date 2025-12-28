@@ -93,6 +93,18 @@ class QueryUseCase {
     );
   }
 
+  Future<void> deleteNote({
+    required Function(void) onResponse,
+    required Function(String) onError,
+    required String id,
+  }) async {
+    await _helper.request(
+      request: () => _client.deleteNote(id: id),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
+
   Future<void> getNote({
     required Function(NoteModel) onResponse,
     required Function(String) onError,

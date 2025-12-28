@@ -78,6 +78,13 @@ void main() {
         id: noteModel.id,
       );
     });
+    test("deleteNote", () async {
+      await _queryUseCase.deleteNote(
+        onResponse: (_) {},
+        onError: onError,
+        id: noteModel.id,
+      );
+    });
     test("getNotesList", () async {
       await _queryUseCase.getNotesList(
         onResponse: (obj) => onResponse(obj, List<NoteModel>),
@@ -86,7 +93,7 @@ void main() {
     });
     test("logout", () async {
       await _queryUseCase.logout(
-        onResponse: (obj) {
+        onResponse: (_) {
           assert(_queryUseCase.lastAuth == null);
         },
         onError: onError,

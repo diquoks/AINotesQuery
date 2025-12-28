@@ -1,0 +1,14 @@
+import 'package:ai_notes_query/ai_notes_query.dart';
+
+abstract interface class Repository {
+  AuthModel? get lastAuth;
+
+  Future<UserModel> signup({
+    required String email,
+    required String password,
+    required String passwordConfirm,
+    required String name,
+  });
+
+  Future<AuthModel> login({required String identity, required String password});
+}

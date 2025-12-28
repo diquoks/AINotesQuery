@@ -48,6 +48,15 @@ void main() {
         id: _queryUseCase.lastAuth!.record.id,
       );
     });
+    test("createNote", () async {
+      await _queryUseCase.createNote(
+        onResponse: (obj) => onResponse(obj, NoteModel),
+        onError: onError,
+        userId: _queryUseCase.lastAuth!.record.id,
+        name: "Sample Note",
+        text: "Some text...",
+      );
+    });
     test("logout", () async {
       await _queryUseCase.logout(
         onResponse: (obj) {

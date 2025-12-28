@@ -5,6 +5,7 @@ class UserModel {
 
   UserModel({required this.id, required this.name, required this.created});
 
+  @override
   UserModel.fromJSON(Map<String, dynamic> json)
     : this(
         id: json["id"],
@@ -12,8 +13,12 @@ class UserModel {
         created: DateTime.parse(json["created"]),
       );
 
+  Map<String, dynamic> toJSON() => {
+    "id": id,
+    "name": name,
+    "created": created.toIso8601String(),
+  };
+
   @override
-  String toString() {
-    return {"id": id, "name": name, "created": created}.toString();
-  }
+  String toString() => toJSON().toString();
 }

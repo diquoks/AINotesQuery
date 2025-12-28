@@ -62,4 +62,18 @@ class QueryUseCase {
       onError: onError,
     );
   }
+
+  Future<void> createNote({
+    required Function(NoteModel) onResponse,
+    required Function(String) onError,
+    required String userId,
+    required String name,
+    required String text,
+  }) async {
+    await _helper.request(
+      request: () => _client.createNote(userId: userId, name: name, text: text),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
 }

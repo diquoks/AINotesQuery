@@ -16,7 +16,7 @@ class Client implements Repository {
 
   String get _usersURL => "${_storage.apiURL}/collections/users";
 
-  // String get _notesURL => "${_storage.apiURL}/collections/notes";
+  String get _notesURL => "${_storage.apiURL}/collections/notes";
 
   Options get _options => Options(
     headers: {if (_lastAuth != null) "Authorization": _lastAuth!.token},
@@ -66,5 +66,19 @@ class Client implements Repository {
     var response = await _dio.get("$_usersURL/records/$id", options: _options);
 
     return UserModel.fromJSON(response.data);
+  }
+
+  @override
+  Future<NoteModel> createNote({
+    required String userId,
+    required String name,
+    required String text,
+  }) async {
+    var response = await _dio.post(
+      "$_notesURL/records",
+      data: {"userId": userId, "name": name, "text": text},
+    );
+
+    return NoteModel.fromJSON(response.data);
   }
 }

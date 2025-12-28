@@ -16,11 +16,20 @@ abstract interface class Repository {
 
   Future<UserModel> getUser({required String id});
 
-  Future<List<NoteModel>> getNotesList();
-
   Future<NoteModel> createNote({
     required String userId,
     required String name,
     required String text,
   });
+
+  Future<NoteModel> updateNote({
+    required String id,
+    required String userId,
+    required String name,
+    required String text,
+  });
+
+  Future<NoteModel> getNote({required String id});
+
+  Future<List<NoteModel>> getNotesList();
 }

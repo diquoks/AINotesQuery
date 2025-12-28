@@ -63,17 +63,6 @@ class QueryUseCase {
     );
   }
 
-  Future<void> getNotesList({
-    required Function(List<NoteModel>) onResponse,
-    required Function(String) onError,
-  }) async {
-    await _helper.request(
-      request: _client.getNotesList,
-      onResponse: onResponse,
-      onError: onError,
-    );
-  }
-
   Future<void> createNote({
     required Function(NoteModel) onResponse,
     required Function(String) onError,
@@ -83,6 +72,45 @@ class QueryUseCase {
   }) async {
     await _helper.request(
       request: () => _client.createNote(userId: userId, name: name, text: text),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
+
+  Future<void> updateNote({
+    required Function(NoteModel) onResponse,
+    required Function(String) onError,
+    required String id,
+    required String userId,
+    required String name,
+    required String text,
+  }) async {
+    await _helper.request(
+      request: () =>
+          _client.updateNote(id: id, userId: userId, name: name, text: text),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
+
+  Future<void> getNote({
+    required Function(NoteModel) onResponse,
+    required Function(String) onError,
+    required String id,
+  }) async {
+    await _helper.request(
+      request: () => _client.getNote(id: id),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
+
+  Future<void> getNotesList({
+    required Function(List<NoteModel>) onResponse,
+    required Function(String) onError,
+  }) async {
+    await _helper.request(
+      request: _client.getNotesList,
       onResponse: onResponse,
       onError: onError,
     );

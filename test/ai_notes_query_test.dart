@@ -5,10 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 QueryUseCase _queryUseCase = QueryUseCase();
 
-String _testString = DateTime.now().microsecondsSinceEpoch.toString();
-
-Map get _credentials => {
-  "email": "$_testString@yandex.ru",
+Map _credentials = {
+  "email": "${DateTime.now().microsecondsSinceEpoch.toString()}@yandex.ru",
   "password": r"Pa$$w0rd",
 };
 
@@ -22,6 +20,8 @@ void onError(String e) {
 }
 
 void main() {
+  late NoteModel noteModel;
+
   group("TestQuery", () {
     test("signup", () async {
       await _queryUseCase.signup(
@@ -50,11 +50,32 @@ void main() {
     });
     test("createNote", () async {
       await _queryUseCase.createNote(
-        onResponse: (obj) => onResponse(obj, NoteModel),
+        onResponse: (obj) {
+          onResponse(obj, NoteModel);
+
+          noteModel = obj;
+        },
         onError: onError,
         userId: _queryUseCase.lastAuth!.record.id,
         name: "Sample Note",
         text: "Some text...",
+      );
+    });
+    test("updateNote", () async {
+      await _queryUseCase.updateNote(
+        onResponse: (obj) => onResponse(obj, NoteModel),
+        onError: onError,
+        id: noteModel.id,
+        userId: noteModel.userId,
+        name: noteModel.name,
+        text: "Some updated text...",
+      );
+    });
+    test("getNote", () async {
+      await _queryUseCase.getNote(
+        onResponse: (obj) => onResponse(obj, NoteModel),
+        onError: onError,
+        id: noteModel.id,
       );
     });
     test("getNotesList", () async {

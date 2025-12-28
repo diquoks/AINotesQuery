@@ -69,13 +69,6 @@ class Client implements Repository {
   }
 
   @override
-  Future<List<NoteModel>> getNotesList() async {
-    var response = await _dio.get("$_notesURL/records", options: _options);
-
-    return NoteModel.fromListJSON(response.data["items"]);
-  }
-
-  @override
   Future<NoteModel> createNote({
     required String userId,
     required String name,
@@ -87,5 +80,35 @@ class Client implements Repository {
     );
 
     return NoteModel.fromJSON(response.data);
+  }
+
+  @override
+  Future<NoteModel> updateNote({
+    required String id,
+    required String userId,
+    required String name,
+    required String text,
+  }) async {
+    var response = await _dio.patch(
+      "$_notesURL/records/$id",
+      data: {"userId": userId, "name": name, "text": text},
+      options: _options,
+    );
+
+    return NoteModel.fromJSON(response.data);
+  }
+
+  @override
+  Future<NoteModel> getNote({required String id}) async {
+    var response = await _dio.get("$_notesURL/records/$id", options: _options);
+
+    return NoteModel.fromJSON(response.data);
+  }
+
+  @override
+  Future<List<NoteModel>> getNotesList() async {
+    var response = await _dio.get("$_notesURL/records", options: _options);
+
+    return NoteModel.fromListJSON(response.data["items"]);
   }
 }

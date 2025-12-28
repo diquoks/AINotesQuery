@@ -39,4 +39,16 @@ class QueryUseCase {
       onError: onError,
     );
   }
+
+  Future<void> getUser({
+    required Function(UserModel) onResponse,
+    required Function(String) onError,
+    required String id,
+  }) async {
+    await _helper.request(
+      request: () => _client.getUser(id: id),
+      onResponse: onResponse,
+      onError: onError,
+    );
+  }
 }

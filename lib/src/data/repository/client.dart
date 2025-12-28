@@ -18,9 +18,9 @@ class Client implements Repository {
 
   // String get _notesURL => "${_storage.apiURL}/collections/notes";
 
-  // Options get _options => Options(
-  //   headers: {if (_lastAuth != null) "Authorization": _lastAuth!.token},
-  // );
+  Options get _options => Options(
+    headers: {if (_lastAuth != null) "Authorization": _lastAuth!.token},
+  );
 
   @override
   Future<UserModel> signup({
@@ -54,5 +54,12 @@ class Client implements Repository {
 
     _lastAuth = AuthModel.fromJSON(response.data);
     return _lastAuth!;
+  }
+
+  @override
+  Future<UserModel> getUser({required String id}) async {
+    var response = await _dio.get("$_usersURL/records/$id", options: _options);
+
+    return UserModel.fromJSON(response.data);
   }
 }

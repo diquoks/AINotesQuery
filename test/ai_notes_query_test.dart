@@ -23,7 +23,7 @@ void onError(String e) {
 
 void main() {
   group("TestQuery", () {
-    test("Signup", () async {
+    test("signup", () async {
       await _queryUseCase.signup(
         onResponse: (obj) => onResponse(obj, UserModel),
         onError: onError,
@@ -33,12 +33,19 @@ void main() {
         name: "John Doe",
       );
     });
-    test("Login", () async {
+    test("login", () async {
       await _queryUseCase.login(
         onResponse: (obj) => onResponse(obj, AuthModel),
         onError: onError,
         identity: _credentials["email"]!,
         password: _credentials["password"]!,
+      );
+    });
+    test("getUser", () async {
+      await _queryUseCase.getUser(
+        onResponse: (obj) => onResponse(obj, UserModel),
+        onError: onError,
+        id: _queryUseCase.lastAuth!.record.id,
       );
     });
   });

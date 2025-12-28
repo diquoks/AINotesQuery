@@ -11,4 +11,9 @@ class UserModel {
         name: json["name"],
         created: DateTime.parse(json["created"]),
       );
+
+  @override
+  String toString() {
+    return {"id": id, "name": name, "created": created}.toString();
+  }
 }

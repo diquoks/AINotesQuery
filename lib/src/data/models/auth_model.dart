@@ -8,4 +8,9 @@ class AuthModel {
 
   AuthModel.fromJSON(Map<String, dynamic> json)
     : this(record: UserModel.fromJSON(json["record"]), token: json["token"]);
+
+  @override
+  String toString() {
+    return {"record": record, "token": token}.toString();
+  }
 }

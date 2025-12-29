@@ -1,4 +1,6 @@
-class NoteModel {
+import 'package:ai_notes_query/ai_notes_query.dart';
+
+class NoteModel extends BaseModel {
   final String id;
   final String userId;
   final String name;
@@ -29,6 +31,7 @@ class NoteModel {
     return list.map((item) => NoteModel.fromJSON(item)).toList();
   }
 
+  @override
   Map<String, dynamic> toJSON() => {
     "id": id,
     "userId": userId,

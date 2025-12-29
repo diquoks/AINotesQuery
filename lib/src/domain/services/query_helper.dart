@@ -5,30 +5,28 @@ class QueryHelper {
     required Future<T> Function() request,
     required void Function(T) onResponse,
     required void Function(String) onError,
-    bool useShortError = true,
   }) async {
     try {
       T response = await request();
       onResponse(response);
     } on Exception catch (e) {
-      onError(castError(e, useShortError));
+      onError(castError(e));
     }
   }
 
-  String castError(Exception e, bool useShortError) {
+  String castError(Exception e) {
     if (e is DioException) {
-      if (useShortError) {
-        return "HTTP ${e.response!.statusCode}";
-      }
-
       if (e.response != null) {
         try {
-          return "${e.response!.data["error"]["message"]} (${e.response!.data["error"]["code"]})";
+          return "${e.response!.data["message"]} ${e.response!.data["status"]}";
         } on Exception {
           return e.toString();
         }
       }
+
+      return e.toString();
     }
+
     return e.toString();
   }
 }

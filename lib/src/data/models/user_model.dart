@@ -1,11 +1,12 @@
-class UserModel {
+import 'package:ai_notes_query/ai_notes_query.dart';
+
+class UserModel extends BaseModel {
   final String id;
   final String name;
   final DateTime created;
 
   UserModel({required this.id, required this.name, required this.created});
 
-  @override
   UserModel.fromJSON(Map<String, dynamic> json)
     : this(
         id: json["id"],
@@ -13,12 +14,10 @@ class UserModel {
         created: DateTime.parse(json["created"]),
       );
 
+  @override
   Map<String, dynamic> toJSON() => {
     "id": id,
     "name": name,
     "created": created.toIso8601String(),
   };
-
-  @override
-  String toString() => toJSON().toString();
 }

@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 QueryUseCase _queryUseCase = QueryUseCase();
 
 Map _credentials = {
-  "email": "${DateTime.now().microsecondsSinceEpoch.toString()}@yandex.ru",
+  "email": "${DateTime.now().microsecondsSinceEpoch}@yandex.ru",
   "password": r"Pa$$w0rd",
 };
 
@@ -27,9 +27,9 @@ void main() {
       await _queryUseCase.signup(
         onResponse: (obj) => onResponse(obj, UserModel),
         onError: onError,
-        email: _credentials["email"]!,
-        password: _credentials["password"]!,
-        passwordConfirm: _credentials["password"]!,
+        email: _credentials["email"],
+        password: _credentials["password"],
+        passwordConfirm: _credentials["password"],
         name: "John Doe",
       );
     });
@@ -37,8 +37,8 @@ void main() {
       await _queryUseCase.login(
         onResponse: (obj) => onResponse(obj, AuthModel),
         onError: onError,
-        identity: _credentials["email"]!,
-        password: _credentials["password"]!,
+        identity: _credentials["email"],
+        password: _credentials["password"],
       );
     });
     test("getUser", () async {
@@ -78,17 +78,17 @@ void main() {
         id: noteModel.id,
       );
     });
+    test("getNotesList", () async {
+      await _queryUseCase.getNotesList(
+        onResponse: (obj) => onResponse(obj, List<NoteModel>),
+        onError: onError,
+      );
+    });
     test("deleteNote", () async {
       await _queryUseCase.deleteNote(
         onResponse: (_) {},
         onError: onError,
         id: noteModel.id,
-      );
-    });
-    test("getNotesList", () async {
-      await _queryUseCase.getNotesList(
-        onResponse: (obj) => onResponse(obj, List<NoteModel>),
-        onError: onError,
       );
     });
     test("logout", () async {
